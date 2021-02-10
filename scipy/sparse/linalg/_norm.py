@@ -13,12 +13,12 @@ def _sparse_frobenius_norm(x):
     if np.issubdtype(x.dtype, np.complexfloating):
         try:
             sqnorm = sum(abs(x[i,j])**2 for i, j in zip(*x.nonzero()))
-        except TypeError:
+        except (TypeError, NotImplementedError):
             sqnorm = abs(x).power(2).sum()
     else:
         try:
             sqnorm = sum(x[i,j]**2 for i, j in zip(*x.nonzero()))
-        except TypeError:
+        except (TypeError, NotImplementedError):
             sqnorm = x.power(2).sum()
     return sqrt(sqnorm)
 
